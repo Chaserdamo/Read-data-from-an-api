@@ -4,7 +4,7 @@ This is a simple example of how we could read data from any api , either a list 
 
 ## Folder Structure
 
-The workspace contains two folders by default, where:
+The workspace contains :
 
 - `src`: the folder to maintain sources
   - `models`: the folder contains the classes to read this specific api
