@@ -2,8 +2,9 @@ package utils;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,55 +14,58 @@ import models.User;
 
 public class apiConnection {
 
+    // Method to search for a specific user by user code
     public static User searchUser(int userCode) {
-
         User userFound = null;
 
         try {
-            String urlConecction = "https://jsonplaceholder.typicode.com/users/";
-            urlConecction += userCode;
+            // Define the base URL for the API
+            String baseUrl = "https://jsonplaceholder.typicode.com/users/";
+            // Create a URI by appending the user code to the base URL
+            URI uri = new URI(baseUrl + userCode);
 
-            URL url = new URL(urlConecction);
-            URLConnection urlConnect = url.openConnection();
+            // Convert the URI to a URL
+            URL url = uri.toURL();
+            // Open an HTTP connection to the URL
+            HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
 
+            // Get the input stream from the connection to read API response
             InputStream input = new BufferedInputStream(urlConnect.getInputStream());
 
-            // Map the api response to my user object
+            // Use Jackson ObjectMapper to map the API response to a User object
             ObjectMapper mapper = new ObjectMapper();
-
             userFound = mapper.readValue(input, User.class);
-
         } catch (Exception e) {
-            System.out.println("Error : Find user - " + e);
+            System.out.println("Error: Find user - " + e);
         }
 
         return userFound;
     }
 
+    // Method to retrieve a list of all users from the API
     public static ArrayList<User> readAllUsers() {
-
         ArrayList<User> userList = new ArrayList<>();
 
         try {
-            String urlConecction = "https://jsonplaceholder.typicode.com/users/";
+            String baseUrl = "https://jsonplaceholder.typicode.com/users/";
+            URI uri = new URI(baseUrl);
 
-            URL url = new URL(urlConecction);
-            URLConnection urlConnect = url.openConnection();
+            URL url = uri.toURL();
+            HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
 
+            // Get the input stream from the connection to read API response
             InputStream input = new BufferedInputStream(urlConnect.getInputStream());
 
-            // Map the api response to my user object
+            // Use Jackson ObjectMapper to map the API response to a list of User objects
             ObjectMapper mapper = new ObjectMapper();
-
             userList = mapper.readValue(input, new TypeReference<ArrayList<User>>() {
             });
 
         } catch (Exception e) {
-            System.out.println("Error : Find user - " + e);
+            System.out.println("Error: Read all users - " + e);
         }
 
         return userList;
-
     }
 
 }
