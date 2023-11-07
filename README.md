@@ -13,7 +13,7 @@ The workspace contains :
 - `lib`: the folder to maintain dependencies
 
 ## Method Descriptions
-# searchUser 
+### searchUser 
 
 The searchUser method allows you to search for a specific user by providing a user code as a parameter. Here's how it works:
 
@@ -25,7 +25,7 @@ The searchUser method allows you to search for a specific user by providing a us
 6. Utilize the Jackson ObjectMapper to map the API response to a Java object of the User class.
 7. The method returns the User object containing the user information.
    
-# readAllUsers 
+### readAllUsers 
 The readAllUsers method allows you to retrieve a list of all users from the external API. Here's how it works:
 
 1. Define the base URL for the external API, which is "https://jsonplaceholder.typicode.com/users/".
